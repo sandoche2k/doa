@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY I-D.draft-durand-doa-over-dns-03 SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.farrell-lpwan-lora-overview">
+]>
+
+<?rfc toc="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes" ?>
+<rfc category="info" ipr="trust200902" docName="draft-farrell-lpwan-overview-05">
+<front>
+   <title abbrev="Digital Object Architecture over DNS">
+     DOA over DNS
+   </title>
+
+   <author role="editor" fullname="Alain Durand" initials="A." surname="Durand">
+     <organization>ICANN</organization>
+     <address>
+       <postal>
+         <street>801 17th St NW Suite 400</street>
+         <city>Washington DC</city>
+         <region></region>
+         <code>20006</code>
+         <country>USA</country>
+       </postal>
+       <phone></phone>
+       <email>Alain.Durand@icann.org</email>
+     </address>
+   </author>
+
+   <author role="editor" fullname="Ray Bellis" initials="R." surname="Bellis">
+     <organization>ISC, Inc.</organization>
+     <address>
+       <postal>
+         <street>950 Charter Street</street>
+         <city>Redwood City</city>
+         <region></region>
+         <code>94063</code>
+         <country>USA</country>
+       </postal>
+       <phone></phone>
+       <email>ray@isc.org</email>
+     </address>
+   </author>
+
+   <date/>
+   <area></area>
+   <workgroup></workgroup>
+   <keyword>Draft</keyword>
+
+   <abstract>
+     <t>
+       This document defines a DOA RR type to implement the Digital Object
+       Architecture over DNS.
+     </t>
+   </abstract>
+</front>
+
+<middle>
+   <section title="Introduction">
+     <t> This document defines an RR type to implement an architecture similar
+   to the Digital Object Architecture <xref target='ITU-X.1255'/> within the DNS.  Each
+   DOA RR contains an object type that might be opaque and private to
+   the producer and the consumer of the data and either the data (if
+   small enough to fit in the RR) or a pointer on how to retrieve the
+   actual data. </t>
+   </section>
+
+   <section title="Terminology">
+     <t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 <xref target='RFC2119'/> <xref target='RFC8174'/> when, and only when,
+   they appear in all capitals, as shown here. </t>
+   </section>
+
+   <section title="The DOA Resource Record">
+     <section title="Description">
+       <t> The Type value for the DOA RR is TBD.  The DOA RR is class
+   independent.  No special processing is required within DNS servers or
+   libraries. </t>
+
+   <t> The RDATA of the resource record comprises of five fields: DOA-
+   ENTERPRISE, DOA-TYPE, DOA-MEDIA-TYPE, DOA-LOCATION and DOA-DATA.</t>
+
+            <section title="Enterprise and Type fields">
+          <t> The DOA-ENTERPRISE and DOA-TYPE fields are combined to indicate the
+   semantic type of the DOA record being represented by the RR.  That
+   semantic is private to the producer of data hosted on an
+   authoritative DNS server and the application software using a DNS
+   stub resolver to retrieve it.</t>
+          <t> The DOA-ENTERPRISE field uses values as specified in the IANA SMI
+   Network Management Private Enterprise Codes Registry
+   <xref target='IANA-ENTERPRISE'/>.  An exception to that is that the reserved value
+   of zero (0) is used to indicate that the the DOA-ENTERPRISE is not
+   set. </t>
+
+          <t> Some commonly used values of DOA-TYPE are registered in the IANA DOA
+   Type Registry Section 7.1, others are privately defined.  As those
+   private types might be used in cross-organization systems, use of the
+   DOA-ENTERPRISE field is RECOMMENDED to disambiguate types. </t>
+            </section>
+
+        <section title="Location field">
+          <t> The DOA-LOCATION signals how the DOA-DATA field should be interpreted
+   using the values specified in the DOA Location Type Registry
+   Section 7.2.</t>
+
+          <t> The value 0 is reserved.</t>
+
+          <t> For the value 1 ("Local"), the DOA-DATA contains the actual DOA
+   object. </t>
+
+          <t> For the value 2 ("URI") the DOA-DATA contains a UTF-8 encoded string
+   representing the URI from which the DOA object can be obtained. </t>
+
+          <t> For the value 3 ("HDL") the DOA-DATA contains a UTF-8 encoded string
+   representing the handle from the Handle System  <xref target='RFC3650'/>  from which
+   the DOA object can be obtained. </t>
+
+          <t> Other values might be defined in the future, for example for NFS,
+   LDAP, etc... </t>
+
+          <t> DNS software implementing the DOA RR type MUST NOT drop or otherwise
+   refuse to handle the DOA RRs containing an unknown or unsupported
+   DOA-location and MUST treat the DOA-DATA portion of the RR as an
+   abstract opaque field. </t>
+        </section>
+
+          <section title="Media Type">
+            <t> The DOA-MEDIA-TYPE field contains the Internet media type <xref
+              target='RFC6838'/> for the DOA object represented by this record. </t>
+
+            <t> If a non-Local object is retrieved over a protocol that supports
+   inclusion of a media type value (e.g. an HTTP Content-Type header)
+   then the client MUST use that value (if supplied) in preference to
+   any value specified inside this resource record.  In such case, the
+   DOA-MEDIA-TYPE MAY be set to NULL, length 0. </t>
+          </section>
+
+          <section title="Data">
+            <t> The DOA-DATA field contains either the object's data, or some form of
+   reference specifying from where the data can be obtained, per the
+   DOA-LOCATION field above. </t>
+          </section>
+        </section>
+
+      <section title="DOA RDATA Wire Format">
+   <figure anchor="DOA-Data-Format" title="DOA Packet Format" >
+     <artwork><![CDATA[
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+0: |                                                               |
+   |                        DOA-ENTERPRISE                         |
+   |                                                               |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+4: |                                                               |
+   |                           DOA-TYPE                            |
+   |                                                               |
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+8: |         DOA-LOCATION          |         DOA-MEDIA-TYPE        /
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+10:/                                                               /
+   /                  DOA-MEDIA-TYPE (continued)                   /
+   /                                                               /
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   /                                                               /
+   /                           DOA-DATA                            /
+   /                                                               /
+   +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+        ]]></artwork>
+      </figure>
+
+      <t> DOA-ENTERPRISE: a 32-bit unsigned integer in network order. </t>
+
+      <t> DOA-TYPE: a 32-bit unsigned integer in network order. </t>
+
+      <t> DOA-LOCATION: an 8-bit unsigned integer. </t>
+
+      <t> DOA-MEDIA-TYPE: A <![CDATA[<character-string>]]> (see  <xref
+        target='RFC1035'/>).  The first  octet of the <![CDATA[<character-string>]]>
+        contains the number of characters to follow. </t>
+
+        <t> DOA-DATA: A variable length blob of binary data.  The length of the
+          DOA-DATA is not contained within the wire format of the RR and has to
+          be computed from the RDLENGTH of the entire RR once other fields have
+          been taken into account. </t>
+        </section>
+
+      <section title="DOA RDATA Presentation Format">
+
+        <t> The DOA-ENTERPRISE field is presented as an unsigned 32-bit decimal
+        integer with range 0 - 4,294,967,295. </t>
+
+        <t> The DOA-TYPE field is presented as an unsigned 32-bit decimal integer
+          with range 0 - 4,294,967,295. </t>
+
+        <t> The DOA-LOCATION field is presented as an unsigned 8-bit decimal
+          integer with range 0 - 255. </t>
+
+        <t> The DOA-MEDIA-TYPE field is presented as a single <![CDATA[<character-string>]]>. </t>
+
+        <t> The DOA-DATA is presented as Base64 encoded data <xref target='RFC4648'/>
+        unless the DOA-DATA is empty in which case it is presented as a single dash
+          character ("-", ASCII 45).  White space is permitted within Base64
+          data. </t>
+      </section>
+   </section>
+
+  <section title="Security Considerations">
+    <t> The use of DNSSEC is encouraged to protect the integrity of the data
+   contained in the DOA RR type. </t>
+  </section>
+
+  <section title="Privacy  Considerations">
+    <t> Personally identifiable information (PII) data appearing in the DOA-
+  DATA field SHOULD be encrypted. </t>
+  </section>
+
+  <section title="Operational Considerations">
+    <t>   Some DOA records might contain large data that is only of interest to
+       a single party, as such, caching those records does not provide much
+       benefits and could be considered a denial of service attack on the
+       caching resolver infrastructure.  It is thus RECOMMENDED that the TTL
+       associated with large DOA RRs be set as small as possible to avoid
+       caching. </t>
+  </section>
+
+  <section title="IANA Considerations">
+    <section title="DOA Type Registry">
+      <t> IANA are requested to create the DOA Type Registry with initial
+         contents as follows: </t>
+    <figure anchor="DOA-Type-Registry" title="DOA Registry Type" >
+    <artwork><![CDATA[
+    +--------------+-------------------------------+---------------+
+    |        Value | Name                          | Specification |
+    +--------------+-------------------------------+---------------+
+    |            0 | Reserved - cannot be assigned | RFC-TBD1      |
+    |              |                               |               |
+    |            1 | contact email                 | RFC-TBD1      |
+    |              |                               |               |
+    |            2 | contact website               | RFC-TBD1      |
+    |              |                               |               |
+    |            3 | contact telephone             | RFC-TBD1      |
+    |              |                               |               |
+    |       4 - 99 | Unassigned                    |               |
+    |              |                               |               |
+    |          100 | public key                    | RFC-TBD1      |
+    |              |                               |               |
+    | 101 - 99,999 | Unassigned                    |               |
+    |              |                               |               |
+    |     100000 - | Reserved for Private Use      | RFC-TBD1      |
+    +--------------+-------------------------------+---------------+
+           ]]></artwork>
+           </figure>
+         <t> Assignments in the 1-99,999 range in this registry require Expert
+         Review. </t>
+      </section>
+
+      <section title="DOA Location Type Registry">
+
+        <t> IANA are requested to create the DOA Location Type Registry with
+        initial contents as follows: </t>
+
+        <figure anchor="DOA-Location-Type-Registry" title="DOA Location Registry Type" >
+          <artwork><![CDATA[
+     +-----------+-------------------------------+---------------+
+     |     Value | Location                      | Specification |
+     +-----------+-------------------------------+---------------+
+     |         0 | Reserved - cannot be assigned | RFC-TBD1      |
+     |           |                               |               |
+     |         1 | Local                         | RFC-TBD1      |
+     |           |                               |               |
+     |         2 | URI                           | RFC-TBD1      |
+     |           |                               |               |
+     |         3 | HDL                           | RFC-TBD1      |
+     |           |                               |               |
+     |   4 - 199 | Unassigned                    |               |
+     |           |                               |               |
+     | 200 - 254 | Reserved for Private Use      | RFC-TBD1      |
+     |           |                               |               |
+     |       255 | Reserved - cannot be assigned | RFC-TBD1      |
+     +-----------+-------------------------------+---------------+
+     ]]></artwork>
+     </figure>
+     <t> Assignments in the 4-199 range in this registry require Expert
+       Review. </t>
+    </section>
+
+    </section>
+
+    <section title="Acknoweldgements">
+
+    </section>
+  </middle>
+
+<back>
+<references title="Normative References">
+    <reference anchor="IANA-ENTERPRISE" target="https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers">
+        <front>
+          <title>"SMI Network Management Private Enterprise Codes
+              Registry"</title>
+          <author><organization> IANA </organization></author>
+          <date month="" year="" />
+        </front>
+      </reference>
+   <?rfc include='reference.RFC.1035'?>
+   <?rfc include='reference.RFC.2119'?>
+   <?rfc include='reference.RFC.4648'?>
+   <?rfc include='reference.RFC.6838'?>
+   <?rfc include='reference.RFC.8174'?>
+</references>
+
+<references title="Informative References">
+  <reference anchor="ITU-X.1255" target="https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers">
+      <front>
+        <title>"Framework for discovery of identity management
+              information", n.d."</title>
+        <author><organization> ITU </organization></author>
+        <date month="" year="" />
+      </front>
+    </reference>
+    <?rfc include='reference.RFC.3650'?>
+</references>
+</back>
+</rfc>
