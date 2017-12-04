@@ -3,9 +3,9 @@
 
 
 Independent Submission                                    A. Durand, Ed.
-Internet-Draft       Internet Corporation for Assigned Names and Numbers
+Internet-Draft                                                     ICANN
 Intended status: Experimental                             R. Bellis, Ed.
-Expires: June 7, 2018                  Internet Systems Consortium, Inc.
+Expires: June 7, 2018                                          ISC, Inc.
                                                         December 4, 2017
 
 
@@ -417,7 +417,7 @@ Internet-Draft    Digital Object Architecture over DNS     December 2017
 Authors' Addresses
 
    Alain Durand (editor)
-   Internet Corporation for Assigned Names and Numbers
+   ICANN
    801 17th St NW Suite 400
    Washington DC  20006
    USA
@@ -426,7 +426,7 @@ Authors' Addresses
 
 
    Ray Bellis (editor)
-   Internet Systems Consortium, Inc.
+   ISC, Inc.
    950 Charter Street
    Redwood City, CA  94063
    USA
