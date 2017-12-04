@@ -13,7 +13,7 @@
 <?rfc toc="yes"?>
 <?rfc comments="yes"?>
 <?rfc inline="yes" ?>
-<rfc category="info" ipr="trust200902" docName="draft-durand-doa-over-dns-03">
+<rfc category="exp" ipr="trust200902" docName="draft-durand-doa-over-dns-03">
 <front>
    <title abbrev="Digital Object Architecture over DNS">
      DOA over DNS
@@ -294,7 +294,7 @@
 
     </section>
 
-    <section title="Acknoweldgements">
+    <section title="Acknowledgements">
 
     </section>
   </middle>
@@ -303,8 +303,8 @@
 <references title="Normative References">
     <reference anchor="IANA-ENTERPRISE" target="https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers">
         <front>
-          <title>"SMI Network Management Private Enterprise Codes
-              Registry"</title>
+          <title>SMI Network Management Private Enterprise Codes
+              Registry</title>
           <author><organization> IANA </organization></author>
           <date month="" year="" />
         </front>
@@ -319,8 +319,8 @@
 <references title="Informative References">
   <reference anchor="ITU-X.1255" target="https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers">
       <front>
-        <title>"Framework for discovery of identity management
-              information", n.d."</title>
+        <title>Framework for discovery of identity management
+              information, n.d.</title>
         <author><organization> ITU </organization></author>
         <date month="" year="" />
       </front>

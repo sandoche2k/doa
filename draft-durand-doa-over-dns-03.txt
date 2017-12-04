@@ -2,9 +2,9 @@
 
 
 
-Network Working Group                                     A. Durand, Ed.
+Independent Submission                                    A. Durand, Ed.
 Internet-Draft                                                     ICANN
-Intended status: Informational                            R. Bellis, Ed.
+Intended status: Experimental                             R. Bellis, Ed.
 Expires: June 7, 2018                                          ISC, Inc.
                                                         December 4, 2017
 
