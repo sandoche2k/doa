@@ -20,7 +20,7 @@
    </title>
 
    <author role="editor" fullname="Alain Durand" initials="A." surname="Durand">
-     <organization>ICANN</organization>
+     <organization>Internet Corporation for Assigned Names and Numbers</organization>
      <address>
        <postal>
          <street>801 17th St NW Suite 400</street>
@@ -35,16 +35,16 @@
    </author>
 
    <author role="editor" fullname="Ray Bellis" initials="R." surname="Bellis">
-     <organization>ISC, Inc.</organization>
+     <organization>Internet Systems Consortium, Inc.</organization>
      <address>
        <postal>
          <street>950 Charter Street</street>
          <city>Redwood City</city>
-         <region></region>
+         <region>CA</region>
          <code>94063</code>
          <country>USA</country>
        </postal>
-       <phone></phone>
+       <phone>+1 650 423 1200</phone>
        <email>ray@isc.org</email>
      </address>
    </author>

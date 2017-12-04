@@ -3,9 +3,9 @@
 
 
 Independent Submission                                    A. Durand, Ed.
-Internet-Draft                                                     ICANN
+Internet-Draft       Internet Corporation for Assigned Names and Numbers
 Intended status: Experimental                             R. Bellis, Ed.
-Expires: June 7, 2018                                          ISC, Inc.
+Expires: June 7, 2018                  Internet Systems Consortium, Inc.
                                                         December 4, 2017
 
 
@@ -76,7 +76,7 @@ Table of Contents
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
      7.1.  DOA Type Registry . . . . . . . . . . . . . . . . . . . .   6
      7.2.  DOA Location Type Registry  . . . . . . . . . . . . . . .   6
-   8.  Acknoweldgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
      9.2.  Informative References  . . . . . . . . . . . . . . . . .   8
@@ -361,15 +361,15 @@ Internet-Draft    Digital Object Architecture over DNS     December 2017
    Assignments in the 4-199 range in this registry require Expert
    Review.
 
-8.  Acknoweldgements
+8.  Acknowledgements
 
 9.  References
 
 9.1.  Normative References
 
    [IANA-ENTERPRISE]
-              IANA, ""SMI Network Management Private Enterprise Codes
-              Registry"", <https://www.iana.org/assignments/enterprise-
+              IANA, "SMI Network Management Private Enterprise Codes
+              Registry", <https://www.iana.org/assignments/enterprise-
               numbers/enterprise-numbers>.
 
    [RFC1035]  Mockapetris, P., "Domain names - implementation and
@@ -406,8 +406,8 @@ Internet-Draft    Digital Object Architecture over DNS     December 2017
 9.2.  Informative References
 
    [ITU-X.1255]
-              ITU, ""Framework for discovery of identity management
-              information", n.d."", <https://www.iana.org/assignments/
+              ITU, "Framework for discovery of identity management
+              information, n.d.", <https://www.iana.org/assignments/
               enterprise-numbers/enterprise-numbers>.
 
    [RFC3650]  Sun, S., Lannom, L., and B. Boesch, "Handle System
@@ -417,7 +417,7 @@ Internet-Draft    Digital Object Architecture over DNS     December 2017
 Authors' Addresses
 
    Alain Durand (editor)
-   ICANN
+   Internet Corporation for Assigned Names and Numbers
    801 17th St NW Suite 400
    Washington DC  20006
    USA
@@ -426,13 +426,13 @@ Authors' Addresses
 
 
    Ray Bellis (editor)
-   ISC, Inc.
+   Internet Systems Consortium, Inc.
    950 Charter Street
-   Redwood City  94063
+   Redwood City, CA  94063
    USA
 
+   Phone: +1 650 423 1200
    Email: ray@isc.org
-
 
 
 
